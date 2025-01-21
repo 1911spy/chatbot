@@ -14,6 +14,23 @@ from supabase import create_client, Client
 import uuid
 from datetime import datetime
 
+
+import nltk
+import os
+import ssl
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+
+nltk.data.path.append(os.path.join(os.path.dirname(__file__), "nltk_data"))
+try:
+  nltk.data.find('tokenizers/punkt_tab/english.pickle')
+except LookupError:
+  nltk.download('punkt_tab', download_dir = os.path.join(os.path.dirname(__file__), "nltk_data"), quiet = True)
+
 nltk.download('punkt', quiet=True)
 
 # Supabase Setup
