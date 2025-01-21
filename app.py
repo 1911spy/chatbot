@@ -105,13 +105,10 @@ def create_vector_store(split_documents, model_name="sentence-transformers/all-M
       return vector_store
 
 
-import google.generativeai as genai
-from langchain_google_genai import ChatGoogleGenerativeAI
-def create_llm(gemini_api_key):
-    """Create a Gemini LLM object."""
-    genai.configure(api_key=gemini_api_key)
-    client = genai.GenerativeModel('gemini-pro')
-    llm = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=gemini_api_key, client=client)
+ from langchain.llms import HuggingFaceHub
+ def create_llm(gemini_api_key):
+    """Create a Hugging Face LLM object."""
+    llm = HuggingFaceHub(repo_id="mistralai/Mistral-7B-Instruct-v0.2", model_kwargs={"temperature": 0.2, "max_length":1000})
     return llm
 
 
@@ -184,12 +181,10 @@ def process_user_data(user_id):
         st.success("Textbooks processed successfully!")
 
     if st.session_state[user_id]["qa_chain"] is None:
-        with st.spinner("Loading model..."):
-            gemini_api_key = "YAIzaSyCyKtp7Q20a0xRjOo_c9xkX5mZyF5y4xY4"  # Replace with your API key
-            llm = create_llm(gemini_api_key)
-            st.session_state[user_id]["qa_chain"] = create_retrieval_qa_chain(llm,
-                                                                             st.session_state[user_id]["vector_store"])
-        st.success("LLM Model Loaded successfully!")
+    with st.spinner("Loading model..."):
+        llm = create_llm()
+        st.session_state[user_id]["qa_chain"] = create_retrieval_qa_chain(llm,st.session_state[user_id]["vector_store"])
+    st.success("LLM Model Loaded successfully!")
 
 
 # Supabase Storage
