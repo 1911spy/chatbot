@@ -182,9 +182,11 @@ def process_user_data(user_id):
     if st.session_state[user_id]["qa_chain"] is None:
         
         with st.spinner("Loading model..."):
-        llm = create_llm()
-        st.session_state[user_id]["qa_chain"] = create_retrieval_qa_chain(llm,st.session_state[user_id]["vector_store"])
-    st.success("LLM Model Loaded successfully!")
+            llm = create_llm()
+            
+            st.session_state[user_id]["qa_chain"] = create_retrieval_qa_chain(llm,st.session_state[user_id]["vector_store"])
+            
+            st.success("LLM Model Loaded successfully!")
 
 
 # Supabase Storage
