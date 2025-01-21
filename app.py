@@ -104,9 +104,8 @@ def create_vector_store(split_documents, model_name="sentence-transformers/all-M
       vector_store = FAISS.from_texts(texts=split_documents, embedding=embeddings)
       return vector_store
 
-
- from langchain.llms import HuggingFaceHub
- def create_llm(gemini_api_key):
+from langchain.llms import HuggingFaceHub
+def create_llm(gemini_api_key):
     """Create a Hugging Face LLM object."""
     llm = HuggingFaceHub(repo_id="mistralai/Mistral-7B-Instruct-v0.2", model_kwargs={"temperature": 0.2, "max_length":1000})
     return llm
