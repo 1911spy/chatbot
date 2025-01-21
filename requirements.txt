@@ -1,0 +1,9 @@
+streamlit
+langchain
+langchain-google-genai
+sentence-transformers
+chromadb
+pypdf
+tiktoken
+nltk
+supabase
