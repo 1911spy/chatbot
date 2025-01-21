@@ -105,9 +105,13 @@ def create_vector_store(split_documents, model_name="sentence-transformers/all-M
       return vector_store
 
 
-def create_llm(gemini_api_key): #Line 110
+import google.generativeai as genai
+from langchain_google_genai import ChatGoogleGenerativeAI
+def create_llm(gemini_api_key):
     """Create a Gemini LLM object."""
-    llm = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=gemini_api_key, client=None)
+    genai.configure(api_key=gemini_api_key)
+    client = genai.GenerativeModel('gemini-pro')
+    llm = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=gemini_api_key, client=client)
     return llm
 
 
