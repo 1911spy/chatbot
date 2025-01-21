@@ -1,8 +1,8 @@
 streamlit
-langchain
+langchain==0.1.0 # Specify an explicit version
 langchain-google-genai
 sentence-transformers
-chromadb
+chromadb==0.4.21 # Specify an explicit version
 pypdf
 tiktoken
 nltk
