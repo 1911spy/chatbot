@@ -99,10 +99,10 @@ def preprocess_documents(documents, model_name="sentence-transformers/all-MiniLM
 
 
 def create_vector_store(split_documents, model_name="sentence-transformers/all-MiniLM-L6-v2"):
-    """Create the vectorstore for the given document splits."""
-    embeddings = HuggingFaceEmbeddings(model_name=model_name)
-    vector_store = Chroma.from_texts(texts=split_documents, embedding=embeddings)
-    return vector_store
+      """Create the vectorstore for the given document splits."""
+      embeddings = HuggingFaceEmbeddings(model_name=model_name)
+      vector_store = FAISS.from_texts(texts=split_documents, embedding=embeddings)
+      return vector_store
 
 
 def create_llm(gemini_api_key):
